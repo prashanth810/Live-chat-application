@@ -5,6 +5,8 @@ import morgan from "morgan";
 import helmet from "helmet";
 import Authroute from "./routes/Authroute.js";
 import messageroutes from "./routes/MessageRoute.js";
+import ConnectionDB from "./config/Db.js";
+// import path from "path";
 
 
 dotenv.config();
@@ -19,6 +21,9 @@ app.use(morgan());
 app.use(helmet());
 
 
+// const __dirname = path.resolve();
+
+
 // All routes section 
 app.use("/api/auth", Authroute);
 app.use("/api/auth", messageroutes)
@@ -28,8 +33,29 @@ app.get("/", (req, res) => {
     res.status(200).json({ success: true, message: "Livechat backend is running" })
 })
 
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+
+// ready to deployement 
+// if (process.env.NODE_ENV === "production") {
+//     app.use(express.static(path.join(__dirname, "../forntend/dist")));
+// }
+
+// // get only front end 
+// app.get(/.*/, (_, res) => {
+//     res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
+// });
+
+
+// db connection 
+ConnectionDB().then(() => {
+    try {
+        app.listen(PORT, () => {
+            console.log(`Server is running on port ${PORT}`);
+        })
+    }
+    catch (error) {
+        console.log("eroor while connecting server !!!")
+    }
 })
+
 
 
