@@ -2,6 +2,7 @@ import validator from 'validator';
 import bcrypt, { hash } from "bcrypt";
 import UserModel from '../model/UserModel.js';
 import CreateToken from './CreateToken.js';
+import { sendSignUpMail } from './Mailcontroller.js';
 
 
 const SingUp = async (req, res) => {
@@ -39,6 +40,15 @@ const SingUp = async (req, res) => {
         });
 
         const user = await newuser.save();
+        const frontend = process.env.FRONT_END;
+        // new user will recieve mails for well come 
+        try {
+            await sendSignUpMail(email, fullName, res, frontend);
+        }
+        catch (error) {
+            res.status(500).json({ success: false, message: "Failed to send well come email", error });
+        }
+
         const token = await CreateToken(user._id, res);
         const { password: _, ...userWithoutPassword } = user.toObject();
 
