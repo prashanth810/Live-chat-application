@@ -3,6 +3,7 @@ import bcrypt, { hash } from "bcrypt";
 import UserModel from '../model/UserModel.js';
 import CreateToken from './CreateToken.js';
 import { sendSignUpMail } from './Mailcontroller.js';
+import Envs from '../envs/Envs.js';
 
 
 const SingUp = async (req, res) => {
@@ -40,7 +41,7 @@ const SingUp = async (req, res) => {
         });
 
         const user = await newuser.save();
-        const frontend = process.env.FRONT_END;
+        const frontend = Envs.FRONT_END;
         // new user will recieve mails for well come 
         try {
             await sendSignUpMail(email, fullName, res, frontend);
