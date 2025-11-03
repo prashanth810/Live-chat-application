@@ -1,18 +1,15 @@
 import express from "express";
-import dotenv from "dotenv";
 import cors from "cors";
 import morgan from "morgan";
 import helmet from "helmet";
 import Authroute from "./routes/Authroute.js";
 import messageroutes from "./routes/MessageRoute.js";
 import ConnectionDB from "./config/Db.js";
-// import path from "path";
-
-
-dotenv.config();
+import Envs from "./envs/Envs.js";
+// import path from "path"; 
 
 const app = express();
-const PORT = process.env.PORT || 8010;
+const PORT = Envs.PORT || 8010;
 
 // middle wars section 
 app.use(express.json());
