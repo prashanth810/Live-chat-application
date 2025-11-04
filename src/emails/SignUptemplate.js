@@ -94,7 +94,7 @@ const SignUpTemplate = (name, frontendurl) => {
 <div class="email-container">
     <div class="header">
         <div class="header-icon"></div>
-        <h2>Welcome to Messenger!</h2>
+        <h2>Welcome to Live Chat!</h2>
     </div>
     <div class="content">
         <h3>Hello ${name},</h3>
