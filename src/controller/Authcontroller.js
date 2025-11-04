@@ -41,7 +41,7 @@ const SingUp = async (req, res) => {
         });
 
         const user = await newuser.save();
-        const frontend = process.env.FRONT_END;
+        const frontend = Envs.FRONT_END;
         // new user will recieve mails for well come 
         try {
             await sendSignUpMail(email, fullName, res, frontend);

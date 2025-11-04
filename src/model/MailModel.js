@@ -1,12 +1,13 @@
 import nodemailer from "nodemailer";
+import Envs from "../envs/Envs.js";
 
 const MailModel = nodemailer.createTransport({
-    host: process.env.HOST_MAIL, // ex. gmails
-    port: process.env.PORT_NUMBER,  // port number for send emails 
+    host: Envs.HOST_MAIL, // ex. gmails
+    port: Envs.PORT_NUMBER,  // port number for send emails 
     secure: true,
     auth: {
-        user: process.env.USER_MAIL, // ower mail id
-        pass: process.env.APP_PASS, // sending mail have password 
+        user: Envs.USER_MAIL, // ower mail id
+        pass: Envs.APP_PASS, // sending mail have password 
     },
     tls: {
         rejectUnauthorized: false,
