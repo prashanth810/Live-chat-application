@@ -1,7 +1,8 @@
 import arcjet, { shield, detectBot, slidingWindow } from "@arcjet/node";
 import { isSpoofedBot } from "@arcjet/inspect";
+import express from 'express';
 
-
+const app = express();
 
 const Archject = arcjet({
     key: process.env.ARCJET_KEY,
@@ -16,7 +17,7 @@ const Archject = arcjet({
 
         slidingWindow({
             mode: "LIVE",
-            max: 100,
+            max: 3,
             interval: 60,
         }),
     ],

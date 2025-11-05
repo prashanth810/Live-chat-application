@@ -7,7 +7,7 @@ const Authroute = express.Router();
 // get login user profile data only 
 Authroute.get("/profile", Authmiddleware, Loginprofile);
 
-Authroute.post("/user", SingUp);
+Authroute.post("/register", SingUp);
 Authroute.post("/login", Login);
 
 Authroute.put("/updateprofile", Authmiddleware, UpdateProfile);

@@ -5,10 +5,10 @@ import helmet from "helmet";
 import Authroute from "./routes/Authroute.js";
 import messageroutes from "./routes/MessageRoute.js";
 import ConnectionDB from "./config/Db.js";
+import Envs from "./envs/Envs.js";
+import cookieParser from 'cookie-parser'
 // import path from "path";
 
-
-dotenv.config();
 
 const app = express();
 const PORT = Envs.PORT || 8010;
@@ -27,7 +27,7 @@ app.use(cookieParser());
 
 // All routes section 
 app.use("/api/auth", Authroute);
-app.use("/api/auth", messageroutes)
+app.use("/api/auth/message", messageroutes)
 
 
 app.get("/", (req, res) => {

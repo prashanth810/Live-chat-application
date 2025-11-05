@@ -4,6 +4,7 @@ import UserModel from '../model/UserModel.js';
 import CreateToken from './CreateToken.js';
 import { sendSignUpMail } from './Mailcontroller.js';
 import cloudinary from 'cloudinary';
+import Envs from '../envs/Envs.js';
 
 
 const SingUp = async (req, res) => {
