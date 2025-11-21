@@ -78,6 +78,16 @@ const sendMessages = async (req, res) => {
             return res.status(400).json({ success: false, message: "Text is required to send message !!!" });
         }
 
+        if (senderId.equals(recieverId)) {
+            return res.status(400).json({ success: false, messages: "Cannot send messages to your self !!!" });
+        }
+
+        const recieverexist = await UserModel.findById(recieverId)
+
+        if (!recieverexist) {
+            return res.status(404).json({ success: false, messages: "Reciever is not found !!!" });
+        }
+
         if (video) {
             const uplaodvideo = await cloudinary.uploader.upload(video);
             videourl = uplaodvideo.secure_url;

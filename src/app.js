@@ -16,7 +16,10 @@ const PORT = Envs.PORT || 8010;
 // middle wars section 
 app.use(express.json({ limit: "10MB" }));
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+app.use(cors({
+    origin: Envs.FRONT_END,
+    credentials: true
+}));
 app.use(morgan());
 app.use(helmet());
 app.use(cookieParser());

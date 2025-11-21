@@ -172,4 +172,21 @@ const Loginprofile = async (req, res) => {
     }
 }
 
-export { SingUp, Login, UpdatePassword, UpdateProfile, ForgetPassword, Logout, Loginprofile };
+const userbyid = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const user = await UserModel.findById(id);
+
+        if (!user) {
+            res.status(404).json({ success: false, message: "Invalid creadiantails !!!" });
+        }
+
+        res.status(200).json({ success: true, data: user })
+
+    }
+    catch (eroor) {
+        res.status(500).json({ success: false, message: eroor.message })
+    }
+}
+
+export { SingUp, Login, UpdatePassword, UpdateProfile, ForgetPassword, Logout, Loginprofile, userbyid };

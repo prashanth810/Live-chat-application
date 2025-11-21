@@ -1,11 +1,12 @@
 import express from "express";
-import { Login, Logout, SingUp, UpdateProfile, Loginprofile } from "../controller/Authcontroller.js";
+import { Login, Logout, SingUp, UpdateProfile, Loginprofile, userbyid } from "../controller/Authcontroller.js";
 import Authmiddleware from "../middleawares/Authmiddleware.js";
 
 const Authroute = express.Router();
 
 // get login user profile data only 
 Authroute.get("/profile", Authmiddleware, Loginprofile);
+Authroute.get("/profile/:id", Authmiddleware, userbyid);
 
 Authroute.post("/register", SingUp);
 Authroute.post("/login", Login);
