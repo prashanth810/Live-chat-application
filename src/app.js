@@ -7,10 +7,11 @@ import messageroutes from "./routes/MessageRoute.js";
 import ConnectionDB from "./config/Db.js";
 import Envs from "./envs/Envs.js";
 import cookieParser from 'cookie-parser'
+import { app, server } from "./config/Socket.js";
 // import path from "path";
 
 
-const app = express();
+// const app = express();
 const PORT = Envs.PORT || 8010;
 
 // middle wars section 
@@ -52,7 +53,7 @@ app.get("/", (req, res) => {
 // db connection 
 ConnectionDB().then(() => {
     try {
-        app.listen(PORT, () => {
+        server.listen(PORT, () => {
             console.log(`Server is running on port ${PORT}`);
         })
     }
