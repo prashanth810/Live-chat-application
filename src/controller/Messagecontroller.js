@@ -1,4 +1,3 @@
-import { json } from "express";
 import UserModel from "../model/UserModel.js";
 import MesssageModel from "../model/Messagemodel.js";
 import cloudinary from 'cloudinary';
@@ -61,54 +60,56 @@ const getmessagesbyid = async (req, res) => {
 }
 
 const sendMessages = async (req, res) => {
-    const { text, image, video } = req.body;
-    const { recieverId } = req.params;
     try {
+        const { text, image, video } = req.body;
+        const { recieverId } = req.params;
         const senderId = req.user._id;
-
-        let imageurl;
-        let videourl;
-
-        if (image) {
-            const uploadimages = await cloudinary.uploader.upload(image)
-            imageurl = uploadimages.secure_url;
-        }
 
         if (!text || text.trim() === "") {
             return res.status(400).json({ success: false, message: "Text is required to send message !!!" });
         }
 
         if (senderId.equals(recieverId)) {
-            return res.status(400).json({ success: false, messages: "Cannot send messages to your self !!!" });
+            return res.status(400).json({ success: false, message: "Cannot send messages to yourself !!!" });
         }
 
-        const recieverexist = await UserModel.findById(recieverId)
+        const receiverExists = await UserModel.findById(recieverId);
+        if (!receiverExists) {
+            return res.status(404).json({ success: false, message: "Receiver not found !!!" });
+        }
 
-        if (!recieverexist) {
-            return res.status(404).json({ success: false, messages: "Reciever is not found !!!" });
+        let imageurl = "";
+        let videourl = "";
+
+        if (image) {
+            const uploadedImage = await cloudinary.uploader.upload(image, {
+                folder: "chat_images"
+            });
+            imageurl = uploadedImage.secure_url;
         }
 
         if (video) {
-            const uplaodvideo = await cloudinary.uploader.upload(video);
-            videourl = uplaodvideo.secure_url;
+            const uploadedVideo = await cloudinary.uploader.upload(video, {
+                resource_type: "video",
+                folder: "chat_videos"
+            });
+            videourl = uploadedVideo.secure_url;
         }
 
-        const newmessage = new MesssageModel({
+        const newMessage = await MesssageModel.create({
             senderId,
             recieverId,
             text,
             image: imageurl,
-            video: videourl,
-        })
+            video: videourl
+        });
 
-        const messages = await newmessage.save();
-
-        res.status(201).json({ success: true, data: messages })
-
+        res.status(201).json({ success: true, data: newMessage });
     }
     catch (error) {
         res.status(500).json({ success: false, message: error.message });
     }
-}
+};
+
 
 export { getAllcontacts, getallchats, getmessagesbyid, sendMessages };

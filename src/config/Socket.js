@@ -1,36 +1,23 @@
-import { Server } from "socket.io";
-import http from "http";
-import express from "express";
-import Envs from "../envs/Envs.js";
-import { SocketMiddleware } from "../middleawares/SocketMiddleware.js";
+import { createServer } from 'http';
+import express from 'express';
+import { Server } from 'socket.io';
 
 const app = express();
-const server = http.createServer(app);
+const server = createServer(app);
 
 const io = new Server(server, {
     cors: {
-        origin: [Envs.FRONT_END],
-        credentials: true,
+        origin: "http://localhost:5173", // your React frontend
+        credentials: true
     },
 });
 
-io.use(SocketMiddleware);
-
-const usersocketmap = {};
-
 io.on("connection", (socket) => {
-    console.log(`${socket.user.fullName} connected`);
-
-    usersocketmap[socket.userId] = socket.id;
-
-    io.emit("getOnlineUsers", Object.keys(usersocketmap));
-
-    socket.on("disconnect", () => {
-        console.log(`${socket.user.fullName} disconnected`);
-        delete usersocketmap[socket.userId];
-        io.emit("getOnlineUsers", Object.keys(usersocketmap));
-    });
+    console.log("user connected !!!", socket.id);
 });
 
+io.on("disconnected", (socket) => {
+    console.log("user disconnected !!!");
+})
 
-export { io, app, server };
+export { app, server };
