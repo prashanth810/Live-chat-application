@@ -5,8 +5,8 @@ import cloudinary from 'cloudinary';
 
 const getAllcontacts = async (req, res) => {
     try {
-        const loedinluser = req.user._id;
-        const filterUsers = await UserModel.find({ _id: { $ne: loedinluser } }).select("-password");
+        const loginuser = req.user._id;
+        const filterUsers = await UserModel.find({ _id: { $ne: loginuser } }).select("-password");
 
         res.status(200).json({ success: true, data: filterUsers })
     }
@@ -65,9 +65,9 @@ const sendMessages = async (req, res) => {
         const { recieverId } = req.params;
         const senderId = req.user._id;
 
-        if (!text || text.trim() === "") {
-            return res.status(400).json({ success: false, message: "Text is required to send message !!!" });
-        }
+        // if (!text || text.trim() === "") {
+        //     return res.status(400).json({ success: false, message: "Text is required to send message !!!" });
+        // }
 
         if (senderId.equals(recieverId)) {
             return res.status(400).json({ success: false, message: "Cannot send messages to yourself !!!" });
