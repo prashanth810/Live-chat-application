@@ -21,7 +21,8 @@ app.use(cors({
     origin: Envs.FRONT_END,
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    sameSite: 'none',
 }));
 app.use(morgan());
 app.use(helmet());
