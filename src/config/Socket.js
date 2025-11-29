@@ -14,6 +14,8 @@ const io = new Server(server, {
     },
 });
 
+console.log("Socket.io server initialized", Envs.FRONT_END);
+
 io.on("connection", (socket) => {
     console.log("User connected:", socket.id);
 
