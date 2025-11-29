@@ -8,7 +8,7 @@ const server = createServer(app);
 
 const io = new Server(server, {
     cors: {
-        origin: Envs.FRONT_END, // your React frontend
+        origin: Envs.FRONT_END || "https://livechatfrontend.onrender.com", // your React frontend
         methods: ["GET", "POST", "PUT", "DELETE"],
         credentials: true,
     },
