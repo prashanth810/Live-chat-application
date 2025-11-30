@@ -45,7 +45,7 @@ const SingUp = async (req, res) => {
         const frontend = Envs.FRONT_END;
         // new user will recieve mails for well come 
         // try {
-        sendSignUpMail(email, fullName, res, frontend);
+        sendSignUpMail(email, fullName, frontend);
         // }
         // catch (error) {
         //     res.status(500).json({ success: false, message: "Failed to send well come email", error });

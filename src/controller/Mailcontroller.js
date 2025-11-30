@@ -3,7 +3,7 @@ import SignUpTemplate from "../emails/SignUptemplate.js";
 import Envs from "../envs/Envs.js";
 import MailModel from "../model/MailModel.js";
 
-export const sendSignUpMail = async (to, name, res, frontend) => {
+export const sendSignUpMail = async (to, name, frontend) => {
     try {
         await MailModel.sendMail({
             from: `${name} <${Envs.USER_MAIL}> `,
@@ -13,7 +13,7 @@ export const sendSignUpMail = async (to, name, res, frontend) => {
         });
         return true;
     } catch (error) {
-        res.status(500).json({ success: false, message: error.message })
+        // res.status(500).json({ success: false, message: error.message })
         console.log("❌ Mail sending failed:", error.message);
     }
 };
