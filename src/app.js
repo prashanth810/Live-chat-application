@@ -8,6 +8,7 @@ import ConnectionDB from "./config/Db.js";
 import Envs from "./envs/Envs.js";
 import cookieParser from 'cookie-parser'
 import { app, server } from "./config/Socket.js";
+import mongoose from "mongoose";
 // import path from "path";
 
 
