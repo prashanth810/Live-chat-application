@@ -31,8 +31,19 @@ app.use(cookieParser());
 
 console.log("Front-end URL:", Envs.FRONT_END);
 
-
 // const __dirname = path.resolve();
+
+
+// ----------------- MONGO DB FIX HERE -----------------
+mongoose.connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    serverSelectionTimeoutMS: 60000,   // ⬅ FIX
+    socketTimeoutMS: 60000             // ⬅ FIX
+})
+    .then(() => console.log("MongoDB Connected"))
+    .catch(err => console.log("MongoDB Error:", err));
+// -----------------------------------------------------
 
 
 // All routes section 
