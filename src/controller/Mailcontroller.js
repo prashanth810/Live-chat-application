@@ -11,7 +11,7 @@ export const sendSignUpMail = async (to, name, res, frontend) => {
             subject: "Welcome to Live Chat 🎉",
             html: SignUpTemplate(name, frontend),
         });
-
+        return true;
     } catch (error) {
         res.status(500).json({ success: false, message: error.message })
         console.log("❌ Mail sending failed:", error.message);

@@ -44,12 +44,12 @@ const SingUp = async (req, res) => {
         const user = await newuser.save();
         const frontend = Envs.FRONT_END;
         // new user will recieve mails for well come 
-        try {
-            await sendSignUpMail(email, fullName, res, frontend);
-        }
-        catch (error) {
-            res.status(500).json({ success: false, message: "Failed to send well come email", error });
-        }
+        // try {
+        sendSignUpMail(email, fullName, res, frontend);
+        // }
+        // catch (error) {
+        //     res.status(500).json({ success: false, message: "Failed to send well come email", error });
+        // }
 
         const token = await CreateToken(user._id, res);
         const { password: _, ...userWithoutPassword } = user.toObject();
