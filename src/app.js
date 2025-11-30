@@ -36,7 +36,7 @@ console.log("Front-end URL:", Envs.FRONT_END);
 
 
 // ----------------- MONGO DB FIX HERE -----------------
-mongoose.connect(process.env.MONGO_URL, {
+mongoose.connect(Envs.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     serverSelectionTimeoutMS: 60000,   // ⬅ FIX
