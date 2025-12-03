@@ -112,4 +112,18 @@ const sendMessages = async (req, res) => {
 };
 
 
+const deletemessages = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const messages = await MesssageModel.findByIdAndDelete(id);
+        if (!messages) {
+            res.status(404).json({ success: false, message: "Message not found" });
+        }
+        res.status(200).json({ success: true, message: "Message deleted successfully" });
+    }
+    catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+}
+
 export { getAllcontacts, getallchats, getmessagesbyid, sendMessages };
